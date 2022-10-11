@@ -3,7 +3,9 @@ import sys  # importera sys
 import random  # importerar random
 from Svar import *  # Importerar allt från Svar.py
 
-bosslista = [random.randint(1, 1000) for i in range(10)]
+bosslista = [random.randint(1, 1000) for i in range(4)]
+
+
 def tid():  # Funktion för att göra det snyggare
     time.sleep(2)  # Väntar 2 sekunder
 
@@ -12,14 +14,14 @@ head = 0  # global variabel
 key = False
 
 
-def sortera(bosslista):
-    for num in range(len(bosslista) - 1, 0, -1):
-        for idx in range(num):
-            if bosslista[idx] > bosslista[idx + 1]:
-                temp = bosslista[idx]
-                bosslista[idx] = bosslista[idx + 1]
-                bosslista[idx + 1] = temp
-    return bosslista
+def sortera(bosslista):  # Funktion för att sortera listan
+    for num in range(len(bosslista) - 1, 0, -1):  # num går från längden av bosslista - 1 till 0 med -1
+        for idx in range(num):  # idx går från 0 till num
+            if bosslista[idx] > bosslista[idx + 1]:  # om bosslista[idx] är större än bosslista[idx + 1]
+                temp = bosslista[idx]  # temp är lika med bosslista[idx]
+                bosslista[idx] = bosslista[idx + 1]  # bosslista[idx] är lika med bosslista[idx + 1]
+                bosslista[idx + 1] = temp  # bosslista[idx + 1] är lika med temp
+    return bosslista  # returnerar bosslista
 
 
 def animate():  # Funktion för att göra det snyggare
@@ -60,8 +62,8 @@ def Karaktar():  # Funktion för att skapa karaktär
             continue
 
 
-def dragon_room():  # drak rum
-    animate()
+def dragon_room():  # Funktion för drak rummet
+    animate()  # Kör funktionen animate
     print("You are in a room with a dragon.")
     tid()
     print("The dragon is sleeping.")
@@ -71,10 +73,9 @@ def dragon_room():  # drak rum
     choice = input("> ").capitalize()
     if choice == 'Gold':
         animate()
-        if random.randint(1, 2) == 1:
-            print("You got the gold and ran away.")
-            tid()
-            blackroom()
+        print("You got the gold and ran away.")
+        tid()
+        blackroom()
     elif choice == 'Dragon':
         animate()
         dead("The dragon wakes up and eats you.")
@@ -276,14 +277,13 @@ def funroom():
             print("Wrong answer.")
 
 
-
 def bossroom():
     print("in this room you have to fight the boss. (aka me)")
     tid()
     print("The numbers are:", bosslista)
-    sortera(bosslista)
     svarlista = []
-    for i in range(10):
+    sortera(bosslista)
+    for i in range(4):
         svarlista.append(int(input("Write in the right order, one number at a time: ")))
     if svarlista == sortera(bosslista):  # Om bosslistan är lika med svarlistan
         print("You won!")
@@ -316,11 +316,10 @@ def blackroom():
     if choice == '1':
         mathroom()
     elif choice == '2':
-        funroom()
+        mathroom()
     elif choice == '3':
-        bossroom()
-
-        # Amyelse:
+        mathroom()
+    else:
         dead("You stumble around the room until you starve.")
 
 

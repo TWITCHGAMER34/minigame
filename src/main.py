@@ -10,6 +10,8 @@ def main():
     while True:
         Karaktar()
         tid()
+        save_name()
+        tid()
         print("You are in a dark room.")
         tid()
         print("""
