@@ -274,6 +274,7 @@ def bossroom():
         for i in range(3):
             bosslista.append(str(random.randint(1,1000)))
         print("The numbers are:", bosslista)
+        # TODO sort
         bosslista.sort() #Sorterar listan
         svarlista = []
         for i in range(3):
