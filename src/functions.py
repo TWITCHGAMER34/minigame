@@ -1,43 +1,52 @@
-import time #importera time
-import sys #importera sys
-import random #importerar random
-from Svar import * # Importerar allt från Svar.py
+import time  # importera time
+import sys  # importera sys
+import random  # importerar random
+from Svar import *  # Importerar allt från Svar.py
 
-def tid(): #Funktion för att göra det snyggare
-    time.sleep(2) #Väntar 2 sekunder
+bosslista = [random.randint(1, 1000) for i in range(10)]
+def tid():  # Funktion för att göra det snyggare
+    time.sleep(2)  # Väntar 2 sekunder
 
-head = 0 #global variabel
+
+head = 0  # global variabel
 key = False
 
 
-def animate(): #Funktion för att göra det snyggare
-    print("Loading:") #Skriver ut Loading:
+def sortera(bosslista):
+    for num in range(len(bosslista) - 1, 0, -1):
+        for idx in range(num):
+            if bosslista[idx] > bosslista[idx + 1]:
+                temp = bosslista[idx]
+                bosslista[idx] = bosslista[idx + 1]
+                bosslista[idx + 1] = temp
+    return bosslista
 
 
-# animation = ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
+def animate():  # Funktion för att göra det snyggare
+    print("Loading:")  # Skriver ut Loading:
+
     animation = ["[■□□□□□□□□□]", "[■■□□□□□□□□]", "[■■■□□□□□□□]", "[■■■■□□□□□□]", "[■■■■■□□□□□]", "[■■■■■■□□□□]",
-             "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"] #En lista med olika animationer
+                 "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"]  # En lista med olika animationer
 
-    for i in range(len(animation)): #En for loop som går igenom listan
-        time.sleep(0.5) #Väntar 0.5 sekunder
+    for i in range(len(animation)):  # En for loop som går igenom listan
+        time.sleep(0.5)  # Väntar 0.5 sekunder
 
-        sys.stdout.write("\r" + animation[i % len(animation)]) #Skriver ut animationen
-        sys.stdout.flush() #Tar bort allt som är i sys.stdout
-    print("\n") #Skriver ut en ny rad
-
-
+        sys.stdout.write("\r" + animation[i % len(animation)])  # Skriver ut animationen
+        sys.stdout.flush()  # Tar bort allt som är i sys.stdout
+    print("\n")  # Skriver ut en ny rad
 
 
-def Karaktar(): #Funktion för att skapa karaktär
-    while True: #En while loop som kör tills den blir false
-        print("You can choose from 2 characters. John, Amy") #Skriver ut en sträng
-        ch = input("Choose a character: ").capitalize() #Skriver ut en sträng och tar in en input och gör om första nbokstaven till stor bokstav
-        if ch == "John": #Om ch är lika med John
-            print("You have chosen John.") #Skriver ut en sträng
-            animate() #Kör funktionen animate
-            with open("character.txt", "w") as f: #Öppnar character.txt och skriver över allt som står i filen
-                f.write(ch) #Skriver in ch i filen
-            break #Bryter loopen
+def Karaktar():  # Funktion för att skapa karaktär
+    while True:  # En while loop som kör tills den blir false
+        print("You can choose from 2 characters. John, Amy")  # Skriver ut en sträng
+        ch = input(
+            "Choose a character: ").capitalize()  # Skriver ut en sträng och tar in en input och gör om första nbokstaven till stor bokstav
+        if ch == "John":  # Om ch är lika med John
+            print("You have chosen John.")  # Skriver ut en sträng
+            animate()  # Kör funktionen animate
+            with open("character.txt", "w") as f:  # Öppnar character.txt och skriver över allt som står i filen
+                f.write(ch)  # Skriver in ch i filen
+            break  # Bryter loopen
         elif ch == "Amy":
             print("You have chosen Amy.")
             animate()
@@ -51,7 +60,7 @@ def Karaktar(): #Funktion för att skapa karaktär
             continue
 
 
-def dragon_room(): #drak rum
+def dragon_room():  # drak rum
     animate()
     print("You are in a room with a dragon.")
     tid()
@@ -73,7 +82,7 @@ def dragon_room(): #drak rum
         dead("You stumble around the room until you starve.")
 
 
-def cthulhu_room(): #Funktion för cthulhu rummet
+def cthulhu_room():  # Funktion för cthulhu rummet
     global head
     print("Here you see the great evil Cthulhu.")
     tid()
@@ -102,8 +111,8 @@ def cthulhu_room(): #Funktion för cthulhu rummet
     elif choice == 'D':
         print("You took cathulu's head and ran away.")
         head += 1
-        with open("head.txt", "w") as f: #Öppnar head.txt och skriver över allt som står i filen
-            f.write(str(head)) #Skriver in head i filen
+        with open("head.txt", "w") as f:  # Öppnar head.txt och skriver över allt som står i filen
+            f.write(str(head))  # Skriver in head i filen
         tid()
         print("You ran to another galaxy.")
         tid()
@@ -132,7 +141,7 @@ def bear_room():
         blackroom()
     elif choice == 'Yes':
         print("How are you going to move the bear? Take honey or taunt bear? (take or taunt)")
-        bear_moved = random.choice([True, False]) #Tar fram ett random värde mellan True och False
+        bear_moved = random.choice([True, False])  # Tar fram ett random värde mellan True och False
         bear = True
     else:
         dead("You stumble around the room until you starve.")
@@ -162,16 +171,16 @@ def gold_room():
     global choice, how_much
     print("This room is full of gold.  How much do you take? (numbers only)")
 
-    try: #Försöker köra koden
+    try:  # Försöker köra koden
         choice = int(input("> "))
     except ValueError:
-        dead("Death is the only answer.")  #Om det inte går att göra om till int så körs denna kod
+        dead("Death is the only answer.")  # Om det inte går att göra om till int så körs denna kod
     if isinstance(choice, int):
-        how_much = int(choice) #om choice är int kör den vidare
+        how_much = int(choice)  # om choice är int kör den vidare
     else:
         dead("Death is the only answer.")
 
-    if how_much <= 50: #Om how_much är mindre eller lika med 50
+    if how_much <= 50:  # Om how_much är mindre eller lika med 50
         print("Nice, you're not greedy, you win!")
         victoryroom()
     else:
@@ -198,27 +207,27 @@ def save_name():
 
 def mathroom():
     global key
-    tries = {"John": 3, "Amy": 3} #En dictionary med namn och antal försök
+    tries = {"John": 3, "Amy": 3}  # En dictionary med namn och antal försök
 
-    rights = {"John": 0, "Amy": 0} #En dictionary med namn och rätt svar
+    rights = {"John": 0, "Amy": 0}  # En dictionary med namn och rätt svar
 
-    with open("character.txt", "r") as f: #Öppnar character.txt och läser innehållet
-        karaktar = f.read() #Läser innehållet i karaktär
+    with open("character.txt", "r") as f:  # Öppnar character.txt och läser innehållet
+        karaktar = f.read()  # Läser innehållet i karaktär
 
     print("In this room you have to solve a math problem.")
     tid()
     print("You have 3 tries.")
-    while karaktar == "John" or karaktar == "Amy": #Om karaktär är John eller Amy
+    while karaktar == "John" or karaktar == "Amy":  # Om karaktär är John eller Amy
         tid()
         num1 = random.randint(1, 100)
         num2 = random.randint(1, 100)
-        print(f'What is {num1} + {num2}?') #Skriver ut num1 och num2
+        print(f'What is {num1} + {num2}?')  # Skriver ut num1 och num2
         tid()
         answer = int(input("> "))
         if answer == num1 + num2:
-            rights[karaktar] += 1 #Lägger till 1 i rights
+            rights[karaktar] += 1  # Lägger till 1 i rights
             with open("rights.txt", "w") as f:
-                f.write(str(rights[karaktar])) #Skriver in rights i filen
+                f.write(str(rights[karaktar]))  # Skriver in rights i filen
             print("You got it right.")
             tid()
             if tries[karaktar] == 0:
@@ -267,23 +276,20 @@ def funroom():
             print("Wrong answer.")
 
 
+
 def bossroom():
-        print("in this room you have to fight the boss. (aka me)")
-        tid()
-        bosslista = []
-        for i in range(3):
-            bosslista.append(str(random.randint(1,1000)))
-        print("The numbers are:", bosslista)
-        # TODO sort
-        bosslista.sort() #Sorterar listan
-        svarlista = []
-        for i in range(3):
-            svarlista.append(input("Write in the right order, one number at a time: "))
-        if bosslista == svarlista: #Om bosslistan är lika med svarlistan
-            print("You won!")
-            victoryroom()
-        else:
-            dead("You lost.")
+    print("in this room you have to fight the boss. (aka me)")
+    tid()
+    print("The numbers are:", bosslista)
+    sortera(bosslista)
+    svarlista = []
+    for i in range(10):
+        svarlista.append(int(input("Write in the right order, one number at a time: ")))
+    if svarlista == sortera(bosslista):  # Om bosslistan är lika med svarlistan
+        print("You won!")
+        victoryroom()
+    else:
+        dead("You lost.")
 
 
 def victoryroom():

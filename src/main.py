@@ -10,8 +10,6 @@ def main():
     while True:
         Karaktar()
         tid()
-        mathroom()
-        tid()
         print("You are in a dark room.")
         tid()
         print("""
