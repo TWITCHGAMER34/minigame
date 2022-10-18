@@ -2,6 +2,7 @@ import time  # importera time
 import sys  # importera sys
 import random  # importerar random
 from Svar import *  # Importerar allt från Svar.py
+import sys
 
 bosslista = [random.randint(1, 1000) for i in range(4)]
 
@@ -14,6 +15,8 @@ head = 0  # global variabel
 key = False
 
 
+
+
 def sortera(bosslista):  # Funktion för att sortera listan
     for num in range(len(bosslista) - 1, 0, -1):  # num går från längden av bosslista - 1 till 0 med -1
         for idx in range(num):  # idx går från 0 till num
@@ -22,6 +25,9 @@ def sortera(bosslista):  # Funktion för att sortera listan
                 bosslista[idx] = bosslista[idx + 1]  # bosslista[idx] är lika med bosslista[idx + 1]
                 bosslista[idx + 1] = temp  # bosslista[idx + 1] är lika med temp
     return bosslista  # returnerar bosslista
+
+def caps(text):
+    return text[0].upper() + text[1:].lower()
 
 
 def animate():  # Funktion för att göra det snyggare
@@ -41,8 +47,7 @@ def animate():  # Funktion för att göra det snyggare
 def Karaktar():  # Funktion för att skapa karaktär
     while True:  # En while loop som kör tills den blir false
         print("You can choose from 2 characters. John, Amy")  # Skriver ut en sträng
-        ch = input(
-            "Choose a character: ").capitalize()  # Skriver ut en sträng och tar in en input och gör om första nbokstaven till stor bokstav
+        ch = caps(input("Choose a character: "))  # Skriver ut en sträng och tar in en input och gör om första nbokstaven till stor bokstav
         if ch == "John":  # Om ch är lika med John
             print("You have chosen John.")  # Skriver ut en sträng
             animate()  # Kör funktionen animate
@@ -70,7 +75,7 @@ def dragon_room():  # Funktion för drak rummet
     tid()
     print("Do you want to take the gold or wake the dragon? (gold or dragon)")
     tid()
-    choice = input("> ").capitalize()
+    choice = caps(input("> "))
     if choice == 'Gold':
         animate()
         print("You got the gold and ran away.")
@@ -100,7 +105,7 @@ def cthulhu_room():  # Funktion för cthulhu rummet
     f. kill cathulu
     """)
     tid()
-    choice = input("> ").capitalize()
+    choice = caps(input("> "))
     if choice == 'A':
         print("You fleed to the black room.")
         blackroom()
@@ -137,7 +142,7 @@ def bear_room():
     print("The fat bear is in front of another door.")
     tid()
     print("Are you going to move the bear? (yes or no)")
-    choice = input("> ").capitalize()
+    choice = caps(input("> "))
     if choice == 'No':
         blackroom()
     elif choice == 'Yes':
@@ -148,7 +153,7 @@ def bear_room():
         dead("You stumble around the room until you starve.")
 
     while bear:
-        choice = input("> ").capitalize()
+        choice = caps(input("> "))
 
         if choice == 'Take':
             dead("The bear looks at you then slaps your face off.")
@@ -156,7 +161,7 @@ def bear_room():
         elif choice == 'Taunt' and bear_moved:
             print("The bear has moved from the door.")
             print("You can go through it now or go back. (go or back)")
-            choice = input("> ").capitalize()
+            choice = caps(input("> "))
             if choice == 'Go':
                 blackroom()
             elif choice == 'Back':
@@ -191,7 +196,7 @@ def gold_room():
 def dead(why):
     print("You died because: ", why, "Good job!")
     print("Do you want to play again? Y/N")
-    choice = input("> ").capitalize()
+    choice = caps(input("> "))
     if choice == 'Y':
         back_to_start()
     elif choice == 'N':
@@ -224,8 +229,15 @@ def mathroom():
         num2 = random.randint(1, 100)
         print(f'What is {num1} + {num2}?')  # Skriver ut num1 och num2
         tid()
-        answer = int(input("> "))
-        if answer == num1 + num2:
+        flag = True # Sätter flag till True
+        answer = 0
+        while flag: # Så länge flag är True
+            try: # Försöker köra koden
+                answer = int(input("> ")) # Tar in svaret
+                flag = False # Sätter flag till False
+            except ValueError: # Om det inte går att göra om till int så körs denna kod
+                print("You have to write a number.") # Skriver ut texten
+        if answer == num1 + num2:  # Om svaret är rätt och answer är int
             rights[karaktar] += 1  # Lägger till 1 i rights
             with open("rights.txt", "w") as f:
                 f.write(str(rights[karaktar]))  # Skriver in rights i filen
@@ -249,6 +261,7 @@ def mathroom():
             elif rights[karaktar] == 3:
                 print("Welcome to next room!")
                 funroom()
+
 
 
 def funroom():
@@ -296,7 +309,7 @@ def victoryroom():
     print("You won the game.")
     tid()
     print("Do you want to play again? Y/N")
-    choice = input("> ").capitalize()
+    choice = caps(input("> "))
     if choice == "Y":
         return
     elif choice == "N":
@@ -312,7 +325,7 @@ def blackroom():
     tid()
     print("Which door do you want to go through? (1, 2 or 3)")
     tid()
-    choice = input("> ").capitalize()
+    choice = caps(input("> "))
     if choice == '1':
         mathroom()
     elif choice == '2':
