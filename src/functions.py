@@ -1,13 +1,13 @@
-import time  # importera time
-import sys  # importera sys
-import random  # importerar random
-from Svar import *  # Importerar allt från Svar.py
+import time
+import random
+from Svar import *
 import sys
 
-bosslista = [random.randint(1, 1000) for i in range(4)]
+bosslista = [random.randint(1, 1000) for i in range(4)] # En lista med 4 slumpmässiga tal mellan 1 och 1000 används i funktionen bossroom
 
 
 def tid():  # Funktion för att göra det snyggare
+    """Funktion för att koden ska "stanna" en stund"""
     time.sleep(2)  # Väntar 2 sekunder
 
 
@@ -18,6 +18,7 @@ key = False
 
 
 def sortera(bosslista):  # Funktion för att sortera listan
+    """Funktion för att manuellt sortera en eller flera lisor"""
     for num in range(len(bosslista) - 1, 0, -1):  # num går från längden av bosslista - 1 till 0 med -1
         for idx in range(num):  # idx går från 0 till num
             if bosslista[idx] > bosslista[idx + 1]:  # om bosslista[idx] är större än bosslista[idx + 1]
@@ -27,11 +28,13 @@ def sortera(bosslista):  # Funktion för att sortera listan
     return bosslista  # returnerar bosslista
 
 def caps(text):
+    """Funktion för att göra texten till versaler"""
     return text[0].upper() + text[1:].lower()
 
 
-def animate():  # Funktion för att göra det snyggare
-    print("Loading:")  # Skriver ut Loading:
+def animate():
+    """Animerar en "loading bar" """
+    print("Loading:")
 
     animation = ["[■□□□□□□□□□]", "[■■□□□□□□□□]", "[■■■□□□□□□□]", "[■■■■□□□□□□]", "[■■■■■□□□□□]", "[■■■■■■□□□□]",
                  "[■■■■■■■□□□]", "[■■■■■■■■□□]", "[■■■■■■■■■□]", "[■■■■■■■■■■]"]  # En lista med olika animationer
@@ -44,16 +47,17 @@ def animate():  # Funktion för att göra det snyggare
     print("\n")  # Skriver ut en ny rad
 
 
-def Karaktar():  # Funktion för att skapa karaktär
-    while True:  # En while loop som kör tills den blir false
-        print("You can choose from 2 characters. John, Amy")  # Skriver ut en sträng
-        ch = caps(input("Choose a character: "))  # Skriver ut en sträng och tar in en input och gör om första nbokstaven till stor bokstav
-        if ch == "John":  # Om ch är lika med John
-            print("You have chosen John.")  # Skriver ut en sträng
-            animate()  # Kör funktionen animate
-            with open("character.txt", "w") as f:  # Öppnar character.txt och skriver över allt som står i filen
-                f.write(ch)  # Skriver in ch i filen
-            break  # Bryter loopen
+def Karaktar():
+    """Funktion för att skapa karaktär"""
+    while True:
+        print("You can choose from 2 characters. John, Amy")
+        ch = caps(input("Choose a character: "))
+        if ch == "John":
+            print("You have chosen John.")
+            animate()
+            with open("character.txt", "w") as f:
+                f.write(ch)
+            break
         elif ch == "Amy":
             print("You have chosen Amy.")
             animate()
@@ -67,8 +71,9 @@ def Karaktar():  # Funktion för att skapa karaktär
             continue
 
 
-def dragon_room():  # Funktion för drak rummet
-    animate()  # Kör funktionen animate
+def dragon_room():
+    """Funktion för drak rummet"""
+    animate()
     print("You are in a room with a dragon.")
     tid()
     print("The dragon is sleeping.")
@@ -88,7 +93,8 @@ def dragon_room():  # Funktion för drak rummet
         dead("You stumble around the room until you starve.")
 
 
-def cthulhu_room():  # Funktion för cthulhu rummet
+def cthulhu_room():
+    """Funktion för cthulhu rummet"""
     global head
     print("Here you see the great evil Cthulhu.")
     tid()
@@ -134,6 +140,7 @@ def cthulhu_room():  # Funktion för cthulhu rummet
 
 
 def bear_room():
+    """Funktion för björn rummet"""
     global bear, bear_moved
     print("There is a bear here.")
     tid()
@@ -174,6 +181,7 @@ def bear_room():
 
 
 def gold_room():
+    """This is the gold room"""
     global choice, how_much
     print("This room is full of gold.  How much do you take? (numbers only)")
 
@@ -194,6 +202,7 @@ def gold_room():
 
 
 def dead(why):
+    """Funktion som körs när du är död"""
     print("You died because: ", why, "Good job!")
     print("Do you want to play again? Y/N")
     choice = caps(input("> "))
@@ -206,12 +215,14 @@ def dead(why):
 
 
 def save_name():
+    """Funktion för att spara namn"""
     namn = input("Write your name: ")
     with open("save.txt", "w") as f:
         f.write(namn)
 
 
 def mathroom():
+    """Funktion för matte rummet"""
     global key
     tries = {"John": 3, "Amy": 3}  # En dictionary med namn och antal försök
 
@@ -265,6 +276,7 @@ def mathroom():
 
 
 def funroom():
+    """Funktion för roliga rummet"""
     global key
     lista = []
     with open("character.txt", "r") as f:
@@ -291,6 +303,7 @@ def funroom():
 
 
 def bossroom():
+    """Funktion för boss rummet"""
     print("in this room you have to fight the boss. (aka me)")
     tid()
     print("The numbers are:", bosslista)
@@ -306,6 +319,7 @@ def bossroom():
 
 
 def victoryroom():
+    """Funktion för vinnar rummet"""
     print("You won the game.")
     tid()
     print("Do you want to play again? Y/N")
@@ -319,6 +333,7 @@ def victoryroom():
 
 
 def blackroom():
+    """Funktion för svart rummet"""
     print("You are in a black room.")
     tid()
     print("There are 3 doors.")
@@ -337,6 +352,7 @@ def blackroom():
 
 
 def back_to_start():
+    """Funktion för att återgå till början"""
     while True:
         Karaktar()
         tid()
