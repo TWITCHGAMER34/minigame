@@ -158,7 +158,7 @@ def bear_room():
             print("You can go through it now or go back. (go or back)")
             choice = input("> ").capitalize()
             if choice == 'Go':
-                gold_room()
+                blackroom()
             elif choice == 'Back':
                 blackroom()
         elif choice == 'Taunt' and not bear_moved:
@@ -287,7 +287,7 @@ def bossroom():
         svarlista.append(int(input("Write in the right order, one number at a time: ")))
     if svarlista == sortera(bosslista):  # Om bosslistan är lika med svarlistan
         print("You won!")
-        victoryroom()
+        gold_room()
     else:
         dead("You lost.")
 
