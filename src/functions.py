@@ -260,6 +260,9 @@ def mathroom():
                 key = True
                 print("Welcome to next room!")
                 funroom()
+            elif rights[karaktar] == 3 and tries[karaktar] < 3:
+                print("Welcome to next room!")
+                funroom()
             print("Next math problem.")
             tid()
         elif answer != num1 + num2:
