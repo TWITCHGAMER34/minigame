@@ -3,16 +3,34 @@ import random
 from Svar import *
 import sys
 
-bosslista = []
+bosslista = [] # En lista för boss_room
+head = 0  # global variabel
+key = False #Variabel för nyckeln i math_room
 
 
 def tid():  # Funktion för att göra det snyggare
     """Funktion för att koden ska "stanna" en stund"""
-    time.sleep(2)  # Väntar 2 sekunder
+    time.sleep(z)  # Väntar 2 sekunder
 
+def val_av_tid():
+    """Funktion för att välja tid"""
+    global z
+    print("Do you want to play fast, medium or slow?")
+    print("1. Fast")
+    print("2. Medium")
+    print("3. Slow")
+    tiden = input("> ")
+    if tiden == "1":
+        z = 0.5
+    elif tiden == "2":
+        z = 1.0
+    elif tiden == "3":
+        z = 1.5
+    else:
+        print("You did not choose a number.")
+        tid()
+        val_av_tid()
 
-head = 0  # global variabel
-key = False
 
 
 def sortera(bosslista):  # Funktion för att sortera listan

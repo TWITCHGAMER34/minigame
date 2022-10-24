@@ -8,6 +8,8 @@ def tid(): #Tid
 
 def main():
     while True:
+        val_av_tid()
+        tid()
         Karaktar()
         tid()
         save_name()
