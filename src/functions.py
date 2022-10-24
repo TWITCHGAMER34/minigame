@@ -3,7 +3,7 @@ import random
 from Svar import *
 import sys
 
-bosslista = [random.randint(1, 1000) for i in range(4)] # En lista med 4 slumpmässiga tal mellan 1 och 1000 används i funktionen bossroom
+bosslista = []
 
 
 def tid():  # Funktion för att göra det snyggare
@@ -15,8 +15,6 @@ head = 0  # global variabel
 key = False
 
 
-
-
 def sortera(bosslista):  # Funktion för att sortera listan
     """Funktion för att manuellt sortera en eller flera lisor"""
     for num in range(len(bosslista) - 1, 0, -1):  # num går från längden av bosslista - 1 till 0 med -1
@@ -26,6 +24,7 @@ def sortera(bosslista):  # Funktion för att sortera listan
                 bosslista[idx] = bosslista[idx + 1]  # bosslista[idx] är lika med bosslista[idx + 1]
                 bosslista[idx + 1] = temp  # bosslista[idx + 1] är lika med temp
     return bosslista  # returnerar bosslista
+
 
 def caps(text):
     """Funktion för att göra texten till versaler"""
@@ -240,14 +239,14 @@ def mathroom():
         num2 = random.randint(1, 100)
         print(f'What is {num1} + {num2}?')  # Skriver ut num1 och num2
         tid()
-        flag = True # Sätter flag till True
+        flag = True  # Sätter flag till True
         answer = 0
-        while flag: # Så länge flag är True
-            try: # Försöker köra koden
-                answer = int(input("> ")) # Tar in svaret
-                flag = False # Sätter flag till False
-            except ValueError: # Om det inte går att göra om till int så körs denna kod
-                print("You have to write a number.") # Skriver ut texten
+        while flag:  # Så länge flag är True
+            try:  # Försöker köra koden
+                answer = int(input("> "))  # Tar in svaret
+                flag = False  # Sätter flag till False
+            except ValueError:  # Om det inte går att göra om till int så körs denna kod
+                print("You have to write a number.")  # Skriver ut texten
         if answer == num1 + num2:  # Om svaret är rätt och answer är int
             rights[karaktar] += 1  # Lägger till 1 i rights
             with open("rights.txt", "w") as f:
@@ -275,7 +274,6 @@ def mathroom():
             elif rights[karaktar] == 3:
                 print("Welcome to next room!")
                 funroom()
-
 
 
 def funroom():
@@ -307,18 +305,24 @@ def funroom():
 
 def bossroom():
     """Funktion för boss rummet"""
+    global bosslista
     print("in this room you have to fight the boss. (aka me)")
+    x = int(input("How many numbers do you want?: "))
+    bosslista = [random.randint(1, 1000) for i in range(x)]  # En lista med x slumpmässiga tal mellan 1 och 1000 används i funktionen bossroom
+
     tid()
     print("The numbers are:", bosslista)
     svarlista = []
     sortera(bosslista)
-    for i in range(4):
+    for i in range(x):
         svarlista.append(int(input("Write in the right order, one number at a time: ")))
     if svarlista == sortera(bosslista):  # Om bosslistan är lika med svarlistan
         print("You won!")
         gold_room()
     else:
         dead("You lost.")
+
+
 
 
 def victoryroom():
